@@ -7,8 +7,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,13 +14,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.AttributedString;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
@@ -37,20 +35,11 @@ import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import opennlp.tools.cmdline.langdetect.LanguageDetectorTrainerTool;
-import opennlp.tools.cmdline.parser.ParserTool;
-import opennlp.tools.parser.Parse;
-import opennlp.tools.parser.Parser;
-import opennlp.tools.parser.ParserFactory;
-import opennlp.tools.parser.ParserModel;
-import opennlp.tools.sentdetect.SentenceDetectorME;
-import opennlp.tools.sentdetect.SentenceModel;
 
 public class SWNBOT extends ListenerAdapter {
-
-	private static String BOT_TOKEN = "NjEwNDY4NjEwMDYxODkzNjc0.XVFuZg.BengnVzHG0z4ugFXxiVRqmK5AJw";
 	
 	private static List<String> chatWords;
 	private static List<String> startWords;
@@ -87,6 +76,8 @@ public class SWNBOT extends ListenerAdapter {
 	private static long EMOTE_GROSS = 377872040553611264L;
 	
 	public static int[] DEFENCE_VALUES = { 0, 1, 1, 1, 2, 2, 2, 2, 3, 3 };
+	
+	public static HashMap<User, ISCharacter> characterMap;
 
 	public static void main(String[] args) throws LoginException {
 		loadData();
@@ -95,8 +86,14 @@ public class SWNBOT extends ListenerAdapter {
 		lastWords = new ArrayList<String>();
 		loadMessageHistory();
 		channels = new ArrayList<MessageChannel>();
+		characterMap = new HashMap<User, ISCharacter>();
+		
 		JDABuilder builder = new JDABuilder(AccountType.BOT);
-		builder.setToken(BOT_TOKEN);
+		InputStream inputFile = ClassLoader.getSystemClassLoader().getResourceAsStream("discordKey");
+		Scanner sc = new Scanner(inputFile);
+		String token = sc.nextLine();
+		builder.setToken(token);
+		sc.close();
 		builder.addEventListener(new SWNBOT());
 		builder.buildAsync();
 	}
@@ -132,21 +129,6 @@ public class SWNBOT extends ListenerAdapter {
 		}
 	}
 	
-	private static void nlpParser(String sentence)
-	{
-		InputStream is;
-		try {
-			is = new FileInputStream("D:\\Bot\\trained\\en-parser-chunking.bin");		
-			ParserModel model = new ParserModel(is); 
-			Parser parser = ParserFactory.create(model); 
-			Parse[] topParses = ParserTool.parseLine(sentence, parser, 1); 
-			for (Parse p : topParses) 
-		         System.out.println(p.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	private static void loadData() {
 		InputStream inputFile = ClassLoader.getSystemClassLoader().getResourceAsStream("GameData.json");
 		InputStream RPGfile = ClassLoader.getSystemClassLoader().getResourceAsStream("RPGCharacters.json");
@@ -233,7 +215,7 @@ public class SWNBOT extends ListenerAdapter {
 			}
 		}		
 	}
-
+	
 	private void parseMessage(MessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 		try {
@@ -246,6 +228,21 @@ public class SWNBOT extends ListenerAdapter {
 			System.out.println("Unable to parse message '" +  args[0] + "'");
 		}
 		switch (args[0]) {
+		case "!help":
+			String availableCommands = "";
+			availableCommands += "!creature\n";
+			availableCommands += "!person\n";
+			availableCommands += "!problem\n";
+			availableCommands += "!world\n";
+			availableCommands += "!name\n";
+			availableCommands += "!ttsname\n";
+			availableCommands += "!map\n";
+			availableCommands += "!speak\n";
+			availableCommands += "!save\n";
+			availableCommands += "!tts\n";
+			availableCommands += "!portrait\n";
+			event.getChannel().sendMessage(availableCommands).queue();
+			break;
 		case "!creature":
 			event.getChannel().sendMessage(generateCreature()).queue();
 			break;
@@ -257,6 +254,10 @@ public class SWNBOT extends ListenerAdapter {
 			break;
 		case "!world":
 			event.getChannel().sendMessage(generateWorld()).queue();
+			break;
+
+		case "!settlement":
+			event.getChannel().sendMessage(settlementName()).queue();
 			break;
 		case "!name":
 			try {
@@ -339,6 +340,14 @@ public class SWNBOT extends ListenerAdapter {
 				event.getChannel().sendMessage("Unable to generate string. " + e.getMessage()).queue();
 			}
 			break;
+		case "!hey":
+			try {
+				event.getChannel().sendMessage(ColinShit()).queue();
+			} catch(Exception e) {
+				e.printStackTrace();
+				event.getChannel().sendMessage("Unable to generate string. " + e.getMessage()).queue();
+			}
+			break;
 		case "!tts":
 			try {
 				MessageBuilder mb = new MessageBuilder();
@@ -359,8 +368,33 @@ public class SWNBOT extends ListenerAdapter {
 				event.getChannel().sendMessage("Unable to generate string. " + e.getMessage()).queue();
 			}
 			break;
+		case "!iron":
+			parseIronsworn(event);
+			/*
+			if(args.length < 2) {
+				// They did not provide a character name, generate one for them
+				characterMap.put(event.getAuthor(),  genISCharacter(generateName(2).toString()));
+				event.getChannel().sendMessage("Create character " + characterMap.get(event.getAuthor()).name + " for " + event.getAuthor().getName()).queue();
+			} else {
+				characterMap.put(event.getAuthor(),  genISCharacter(args[1]));
+				event.getChannel().sendMessage("Create character " + characterMap.get(event.getAuthor()).name + " for " + event.getAuthor().getName()).queue();
+			}
+			*/
+			break;
+		case "!roll":
+			try {
+				if(args.length < 2) {
+					event.getChannel().sendMessage(roll(0)).queue();
+				} else {
+					event.getChannel().sendMessage(roll(Integer.valueOf(args[1]))).queue();
+				}
+			} catch (Exception ex) {
+				System.out.println("unable to parse arg: " + args[1]);
+				ex.printStackTrace();
+				event.getChannel().sendMessage("Error parsing command. Use !roll (action roll bonus). \n For example: !roll 2").queue();
+			}
+			break;
 		default:
-			//SnowflakeCacheView<Emote> cache = event.getGuild().getEmoteCache();
 			event.getChannel().addReactionById(event.getMessageId(), event.getGuild().getEmoteById(EMOTE_GROSS)).queue();
 			break;
 		}
@@ -388,6 +422,22 @@ public class SWNBOT extends ListenerAdapter {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	private static CharSequence ColinShit() {
+		String output = "";
+		int numWords = ThreadLocalRandom.current().nextInt(4)+3;
+		for(int i = 0; i < numWords; i++ ) {
+			output += chatWords.get(ThreadLocalRandom.current().nextInt(chatWords.size())) + " ";
+		}		
+		output += chatWords.get(ThreadLocalRandom.current().nextInt(chatWords.size())) + ", ";
+		
+		List<String> prepositions = Arrays.asList("on", "in", "at","to", "under", "over", "inside", "outside", "above", "below", "across", "through", "up", "down", "around", "past",
+				"cruelty towards", "knowledge of", "trouble with", "age at", "attempt to", "inquiry into", "admitted to", "go to", "relate to","Aboard","About","Above","Absent","Across","After","Against","Along","Alongside","Amid","Among","Amongst","Anti","Around","As","At","Before","Behind","Below","Beneath","Beside","Besides","Between","Beyond","But","By","Circa","Concerning","Considering","Despite","Down","During","Except","Excepting","Excluding","Failing","Following","For","From","Given","In","Inside","Into","Like","Minus","Near","Of","Off","On","Onto","Opposite","Outside","Over","Past","Per","Plus","Regarding","Round","Save","Since","Than","Through","To","Toward","Towards","Under","Underneath","Unlike","Until","Up","Upon","Versus","Via","With","Within","Without","Worth"
+				);
+		output += prepositions.get(ThreadLocalRandom.current().nextInt(prepositions.size())).toLowerCase() + " ";
+		output += lastWords.get(ThreadLocalRandom.current().nextInt(lastWords.size()));
+		return output;
 	}
 	
 	private static void loadMessageHistory() {
@@ -429,19 +479,29 @@ public class SWNBOT extends ListenerAdapter {
 	}
 
 	private void recordNewWords(String message) {
+		
 		String[] words = message.split(" ");
 		if (!startWords.contains(words[0])) {
+			if(words[0].contains("http")) 
+			{
+				words[0] = "";
+			} 
+			
 			if(words[0].length() != 0) {
 				if(words[0].charAt(0) != '!') {
 					startWords.add(words[0]);
 				}
-			}
+			}			
 		}
 		for(int i = 1; i < words.length -1; i++) {
 			if(chatWords.contains(words[i])) {
 				continue;
 			}
-			chatWords.add(words[i].replaceAll("[-+.^\"():,]", ""));
+			if(words[i].contains("http"))
+			{
+				continue;
+			}
+			chatWords.add(words[i].replaceAll("[-+.^\"():,]!", ""));
 		}
 		
 		if(!lastWords.contains(words[words.length-1])) {
@@ -926,5 +986,73 @@ public class SWNBOT extends ListenerAdapter {
 		String characterList = "Junkrat";
 		
 		return "You should play: " + getRandomValue(characterList);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+	// IRONSWORN SECTION
+	//////////////////////////////////////////////////////////////////////
+	
+	private void parseIronsworn(MessageReceivedEvent event ) {
+		String[] args = event.getMessage().getContentRaw().split(" ");	
+		switch (args[1]) {
+		case "roll":
+			try {
+				roll(Integer.valueOf(args[2]));
+			} catch(Exception ex) {
+				event.getChannel().sendMessage("Error parsing command. Use !roll (action roll bonus). \n For example: !roll 2").queue();
+			}
+			break;
+		case "new":
+			break;
+		case "move":
+			break;
+		case "oracle":
+			break;
+		}
+	}
+	
+	private CharSequence roll (int bonus) {
+		String output = "";
+		int actionRoll = ThreadLocalRandom.current().nextInt(6)+1 + bonus;		
+		int numSuccess = 0;
+		int[] challengeRolls = {0,0};
+		for(int i = 0; i < 2; i++) {
+			challengeRolls[i] = ThreadLocalRandom.current().nextInt(10)+1;
+			if(actionRoll >challengeRolls[i] ) {
+				numSuccess++;
+			}
+		}		
+		
+		output += "ROLLING D6+" + bonus + " against 2D10...";
+		switch(numSuccess) {
+		case 0:
+			output += "\nFAIL - ";
+			break;
+		case 1:
+			output += "\nWEAK HIT - ";
+			break;
+		case 2:
+			output += "\nSTRONG HIT - ";
+			break;
+		}
+		output += actionRoll + " vs " + challengeRolls[0] + ", " + challengeRolls[1];
+		
+		if(challengeRolls[0] == challengeRolls[1]) {
+			output += " (match)";
+		}
+		
+		return output;
+	}
+	
+	private CharSequence settlementName() {
+		String name = "";
+		String[] prefix = {"Bleak", "Green", "Wolf", "Raven", "Gray", "Red", "Axe", "Great", "Wood", "Low", "White", "Storm", "Black", "Mourn", "New", "Stone", "Grim", "Lost", "High", "Rock", "Shield", "Sword", "Frost", "Thorn", "Long" };
+		String[] suffix = {"moor", "ford", "crag", "watch", "hope", "wood", "ridge", "stone", "haven", "fall(s)", "river", "field", "hill", "bridge", "mark", "cairn", "land", "hall", "mount", "rock", "brook", "barrow", "stead", "home", "wick"};		
+		name = prefix[ThreadLocalRandom.current().nextInt(prefix.length)] + suffix[ThreadLocalRandom.current().nextInt(suffix.length)];
+		return name;
+	}
+	
+	private ISCharacter genISCharacter(String name) {
+		return  new ISCharacter(name);
 	}
 }
