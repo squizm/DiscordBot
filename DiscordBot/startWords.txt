@@ -1,6 +1,1 @@
 startWords.txt
-test
-Im
-lol
-nah,
-Did
