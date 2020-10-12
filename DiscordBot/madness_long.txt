@@ -1,0 +1,19 @@
+LONG TERM: POTATO! You must shout a random word that you think of every 10 minutes. Lasts one session.
+LONG TERM: Oh. I’m dead. Act like a ghost. Try to pass through walls and scare people. Lasts for one session.
+LONG TERM: You’re the star! Sing anything you say. Lasts for one session.
+LONG TERM: The floor is lava. Don’t touch the floor (Unless you need to use the restroom!). Your character must attempt to avoid the ground, or hop up and down frantically. Lasts one session.
+LONG TERM: Mimic everything the person to your left does. Your character must do the same. If you are doing something else, you may ignore this rule for that period, but your character may not. Lasts one session.
+LONG TERM: POTATO! You must shout a random word that you think of every 10 minutes. Lasts one session.
+LONG TERM: Slow Motion You feel really sluggish. Your movement speed is halved (Rounding down), and any bonus actions count as full actions. Talk to your party VERY slowly. Lasts for one session.
+LONG TERM: Two Heads Are Not Better You feel as if you’ve sprouted a second head. It will disagree with you and contradict your every thought. Change your mind on every decision. Lasts for one session.
+LONG TERM: Just keep swimming, just keep swimming… You feel compelled to repeat a specific activity over and over. Act this out by repeating a task out-of-game. Lasts one session.
+LONG TERM: Did you see that over there? It looked like a flying monkey. You experience vivid hallucinations for 1 session, and have disadvantage on ability checks. You may act this out by pointing out strange sightings to your companions.
+LONG TERM: Jet fuel can’t melt steel beams. You suffer extreme paranoia, and have disadvantage on Wisdom and Charisma checks. Lasts one session.
+LONG TERM: Disgusting! Keep that away! You find something (of your choice, usually the source of your madness) incredibly revolting, as if affected by the Antipathy spell. Lasts one session.
+LONG TERM: My skin is made of stone! My flesh rapidly heals! I am unstoppable! You experience a powerful delusion. Ask your DM for a potion name (Discreetly!). You must act as if you are under the effects of that potion for 1 session.
+LONG TERM: My, this must be lucky! You become attached to a non-combat item of your choice. You suffer disadvantage on attack rolls, ability checks, and saving throws when over 30ft away from it for 1 session. Act this out by bringing an item everywhere.
+LONG TERM: I CAN’T SEE! I CAN’T HEAR! Roll a d4. On a 1, you are blinded. Any other roll, you are deafened. If you are blinded, close your eyes and play blind! If you are deafened, don’t listen to anyone other than the DM. Lasts one session.
+LONG TERM: *Eye twitch* You suffer uncontrollable tremors or tics, which pose disadvantage on attack rolls, ability checks, and saving throws that involve Strength or Dexterity. Twitch randomly out-of-game. Lasts one session.
+LONG TERM: Who are you? Who, who? Who, who? You suffer from partial amnesia. You know who you are and retain racial traits and class features, but you don’t recognize other people or events prior to your madness for one session. Act like you do not know your friends.
+LONG TERM: ????? You cannot speak for one session.
+LONG TERM: Goodnight! You fall unconscious for one session. No amount of jostling or damage can wake you.

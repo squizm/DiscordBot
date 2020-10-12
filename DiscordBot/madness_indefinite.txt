@@ -1,0 +1,12 @@
+INDEFINITE: This is hilarious! You find it difficult to take anything serious. The more serious the situation, the funnier it is. Lasts until cured.
+INDEFINITE: I really like killing people. Viciously mutilate your foes and their bodies. Attempt to kill your allies. Lasts until cured.
+INDEFINITE: We are just pawns in a game of giants! They leave our fates up to the dice! Look above you! Do you not see them? You are convinced that this is just a tabletop game played by giant people.
+INDEFINITE: Being drunk keeps me sane! Your character drinks excessively. Act drunk out-of-game. Lasts until cured.
+INDEFINITE: If your character picks something up, do not give it to your companions. Take any loot that drops. Try and take random items from your friends. Give them back at the end of the session if it is not noticed. Lasts until cured. 
+INDEFINITE: Pick a character in the party. Your character must act like them. Act this out by behaving like the player who owns that character. Lasts until cured.
+INDEFINITE: I’m only interesting if I tell tall tales. Bend the truth, exaggerate, or lie about everything. Lasts until cured.
+INDEFINITE: My goal is all that matters. Endlessly pursue your personal goals regardless of anything else going on, or your party’s desires. This may require going alone. Lasts until cured.
+INDEFINITE: Who cares? Don’t act interested in anything going on around you.Lasts until cured.
+INDEFINITE: You can’t judge me! My dad owns a dealership! Everyone is silently judging your actions. Accuse them of it! Lasts until cured.
+INDEFINITE: I am so beautiful… to me! Can’t you see? Act like you’re the smartest, strongest, fastest, and most beautiful person you’ve ever known. Lasts until cured.
+INDEFINITE: They’re everywhere, and they’re coming for me! You are convinced there are foes chasing you everywhere you go, and they are watching you.

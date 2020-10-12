@@ -1,0 +1,121 @@
+{ 
+	"World":[{
+	 "tag":"Abandonded Colony",
+	 "desc":"The world once hosted a colony, whether human or otherwise, until some crisis or natural disaster drove the inhabitants away or killed them off. The colony might have been mercantile in nature, an expedition to extract valuable local resources, or it might have been a reclusive cabal of zealots. The remains of the colony are usually in ruins, and might still be dangerous from the aftermath of whatever destroyed it in the first place.",
+	 "enemies":"Crazed survivors, Ruthless plunderers of the ruins, Automated defense system",
+	 "friends":"Inquisitive stellar archaeologist, Heir to the colony’s property, Local wanting the place cleaned out and made safe",
+	 "complication":"The local government wants the ruins to remain a secret, The locals claim ownership of it, The colony is crumbling and dangerous to navigate",
+	 "things":"Long-lost property deeds, Relic stolen by the colonists when they left, Historical record of the colonization attempt",
+	 "places":"Decaying habitation block, Vine-covered town square, Structure buried by an ancient landslide"
+	},
+	{
+	 "tag":"Alien Ruins",
+	 "desc":"The world has significant alien ruins present. The locals may or may not permit others to investigate the ruins, and may make it difficult to remove any objects of value without substantial payment. Any surviving ruins with worthwhile salvage almost certainly have some defense or hazard to explain their unplundered state.",
+	 "enemies":"Customs inspector, Worshipper of the ruins, Hidden alien survivor",
+	 "friends":"Curious scholar, Avaricious local resident, Interstellar smuggler",
+	 "complication":"Traps in the ruins, Remote location, Paranoid customs officials",
+	 "things":"Precious alien artifacts, Objects left with the remains of a prior unsuccessful expedition, Untranslated alien texts, Untouched hidden ruins",
+	 "places":"Undersea ruin, Orbital ruin, Perfectly preserved alien building, Alien mausoleum"
+	},
+	{
+	 "tag":"Altered Humanity",
+	 "desc":"The humans on this world are visibly and drastically different from normal humanity. They may have additional limbs, new sensory organs, or other significant changes. Were these from ancestral eugenic manipulation, strange stellar mutations, or from an environmental toxin unique to this world?",
+	 "enemies":"Biochauvinist local, Local experimenter, Mentally unstable mutant",
+	 "friends":"Local seeking a “cure”, Curious xenophiliac, Anthropological researcher",
+	 "complication":"Alteration is contagious, Alteration is necessary for long-term survival, Locals fear and mistrust non-local humans",
+	 "things":"Original pretech mutagenic equipment, Valuable biological byproduct from the mutants, “Cure” for the altered genes, Record of the original colonial genotypes",
+	 "places":"Abandoned eugenics laboratory, An environment requiring the mutation for survival, A ssacred site where the first local was transformed"
+	},
+	{
+	 "tag":"Anarchists",
+	 "desc":"Rather than being an incidental anarchy of struggling tribes and warring factions, this world actually has a functional society with no centralized authority. Authority might be hyper-localized to extended families, specific religious parishes, or voluntary associations. Some force is preventing an outside group or internal malcontents from coalescing into a power capable of imposing its rule on the locals; this force might be an ancient pretech defense system, a benevolent military AI, or the sheer obscurity and isolation of the culture.",
+	 "enemies":"Offworlder imperialist, Reformer seeking to impose 'good government', Exploiter taking advantage of the lack of centralized resistance", 
+	 "friends":"Proud missionary for anarchy, Casual local free spirit, Curious offworlder political scientist",
+	 "complication":"The anarchistic structure is compelled by an external power, The anarchy is enabled by currently abundant resources, The protecting force that shelters the anarchy is waning",
+	 "things":"A macguffin that would let the possessor enforce their rule on others, A vital resource needed to preserve general liberty, Tech forbidden as disruptive to the social order",
+	 "places":"Community of similar-sized homes, Isolated clan homestead, Automated mining site"
+	},
+	{
+	 "tag":"Anthropomorphs",
+	 "desc":"The locals were originally human, but at some point became anthropomorphic, either as an ancient furry colony, a group of animal-worshiping sectarians, or gengineers who just happened to find animal elements most convenient for surviving on the world. Depending on the skill of the original gengineers, their feral forms may or may not work as well as their original human bodies, or may come with drawbacksinherited from their animal elements.",
+	 "enemies":"Anthro-supremacist local, Native driven by feral urges, Outside exploiter who sees the locals as subhuman creatures", 
+	 "friends":"Fascinated genetic researcher, Diplomat trained to deal with normals, Local needing outside help",
+	 "complication":"The locals consider their shapes a curse from their foolish ancestors, Society is ordered according to animal forms, The locals view normal humans as repulsive or inferior",
+	 "things":"Pretech gengineering tech, A 'cure' that may not be wanted, Sacred feral totem",
+	 "places":"Shrine to a feral deity, Nature preserve suited to an animal type, Living site built to take advantage of animal traits"
+	},
+	{
+	 "tag":"Area 51",
+	 "desc":"The world’s government is fully aware of their local stellar neighbors, but the common populace has no idea about it- and the government means to keep it that way. Trade with government officials in remote locations is possible, but any attempt to clue the commoners in on the truth will be met with lethal reprisals.",
+	 "enemies":"Suspicious government minder, Free merchant who likes his local monopoly, Local who wants a specimen for dissection", 
+	 "friends":"Crusading offworld investigator, Conspiracy-theorist local, Idealistic government reformer",
+	 "complication":"The government has a good reason to keep the truth concealed, The government ruthlessly oppresses the natives, The government is actually composed of offworlders",
+	 "things":"Elaborate spy devices, Memory erasure tech, Possessions of the last offworlder who decided to spread the truth",
+	 "places":"Desert airfield, Deep subterranean bunker, Hidden mountain valley"
+	}],
+	
+	"Atmosphere":"Corrosive,Inert,Airless,Thick,Invasive,Corrosive & Invasive",
+	"Temperature":"Frozen,Cold,Variable Cold,Temperate,Variable warm,Warm,Burning",
+	"BioSphere":"Remnant,Microbial,None,hman-miscible,Immiscible,Hybrid,Engineered",
+	"Population":"Failed colony,Outpost,Fewer than a million inhabitants, Serveral million inhabitants, Hundreds of million inhabitants, billions of inhabitants, alien inhabitants",
+	"TechLevel":"TL0 - neolithic-level technology,TL1 - medieval technology,TL2 - early industrial age technology,TL4 - modern postech,TL3 - tech like that of present day earth,TL4+ - postech with specialties, TL5 - pretech with surviving infrastructure",
+	
+	"Problems":[{
+		"type":"Money",
+		"overall":"Money is owed to a ruthless creditor, Money was stolen from someone,A sudden profit opportunity arises,There’s a hidden stash of wealth,Money is offered from an evil source",
+		"focus":"Organized crime wants it,Corrupt officials want it,A sympathetic NPC needs it,The PCs are owed it,It will disappear very soon"
+	},{
+		"type":"Revenge",
+		"overall":"Someone was murdered,Someone was stripped of rank,Someone lost all their wealth,Someone lost someone’s love,Someone was framed for a crime",
+		"focus":"It was wholly justified,The wrong person is targeted,The reaction is excessive,The PCs are somehow blamed,Both sides were wronged"
+	},{
+		"type":"Power",
+		"overall":"An influential political leader,A stern community elder,A ruling patriarch of a large family,A star expert in a particular industry,A criminal boss or outcast leader",
+		"focus":"They’ve betrayed their own,Someone’s gunning for them,They made a terrible choice,They usurped their position,They’re oppressing their own"
+	},{
+		"type":"Natural Danger",
+		"overall":"A cyclical planetary phenomenon,A sudden natural disaster,Sudden loss of vital infrastructure,Catastrophe from outside meddling,Formerly-unknown planetary peril",
+		"focus":"Anti-helpful bureaucrats,Religious zealots panic,Bandits and looters strike,The government hushes it up,There’s money in exploiting it"
+	},{
+		"type":"Religion",
+		"overall":"Sects that hate each other bitterly,Zealot reformers forcing new things,Radical traditionalists fighting back,Ethnic religious divisions,Corrupt and decadent institutions",
+		"focus":"Charismatic new leader,Mandatory state religion,Heavy foreign influence,Religious purging underway,Fighting for holy ground"
+	},{
+		"type":"Ideology",
+		"overall":"A universally-despised fringe group,Terrorists with widespread support,A political party’s goon squads,Dead-end former regime supporters,Ruthless ascendant political group",
+		"focus":"Terrorist attack,Street rioting,Police state crackdown,Forced expulsions,Territory under hostile rule"
+	},{
+		"type":"Ethnicity",
+		"overall":"A traditionally subordinate group,An ethnic group from offworld,A dominant caste or ethnicity,An alien or transhuman group,Two groups that hate each other",
+		"focus":"Forced immigration,Official ethnic ghettos,Rigid separation of groups,Group statuses have changed,Rising ethnic violence"
+	},{
+		"type":"Resources",
+		"overall":"There’s a cache of illegal materials,A hidden strike of rare resources,Cargo has been abandoned as lost,Land ownership is disputed,A resource is desperately necessary",
+		"focus":"Someone thinks they own it,The state is looking for it,It has its own protectors,Rights to it were stolen,Offworlders want it badly"
+	}],
+	
+	"People":[{
+	 "manner":"Ingratiating and cloying,Grim suspicion of the PCs or their backers,Xenophilic interest in the novelty of the PCs,Pragmatic and businesslike,Romantically interested in one or more PCs,A slimy used-gravcar dealer’s approach,Wide-eyed awe at the PCs,Cool and superior attitude toward PC hirelings,Benevolently patronizing toward outsiders,Sweaty-palmed need or desperation,Xenophobic mistrust of the PCs,Idealistic enthusiasm for a potentially shared cause,Somewhat intoxicated by recent indulgence,Smoothly persuasive and reasonable,Visibly uncomfortable with the PCs,Grossly overconfident in PC abilities,Somewhat frightened by the PCs,Deeply misunderstanding the PCs’ culture,Extremely well-informed about the PCs’ past,Distracted by their current situation",
+	 "outcome":"They’ll screw the PCs over even at their own cost,They firmly intend to actively betray the PCs,They won’t keep the deal unless driven to it,They plan to twist the deal to their own advantage,They won’t keep their word unless it’s profitable,They’ll flinch from paying up when the time comes,They mean to keep the deal but are reluctant,They’ll keep most of the deal, but not all of it,They’ll keep the deal slowly and grudgingly,They’ll keep the deal but won’t go out of their way,They’ll be reasonably punctual about the deal,They’ll want a further small favor to pay up on it,They’ll keep the deal in a way that helps them,They’ll keep the deal if it’s still good for them,They’ll offer a bonus for an additional favor,Trustworthy as long as the deal won’t hurt them,Trustworthy, with the NPC following through,They’ll be very fair in keeping to their agreements,They’ll keep bargains even to their own cost,Complete and righteous integrity to the bitter end",
+	 "motivation":"An ambition for greater social status,Greed for wealth and indulgent riches,Protect a loved one who is somehow imperiled,A sheer sadistic love of inflicting pain and suffering,Hedonistic enjoyment of pleasing company,Searching out hidden knowledge or science,Establishing or promoting a cultural institution,Avenging a grievous wrong to them or a loved one,Promoting their religion and living out their faith,Winning the love of a particular person,Winning glory and fame in their profession,Dodging an enemy who is pursuing them,Driving out or killing an enemy group,Deposing a rival to them in their line of work,Getting away from this world or society,Promote a friend or offspring’s career or future,Taking control of a property or piece of land,Building a structure or a complex prototype tech,Perform or create their art to vast acclaim,Redeem themselves from a prior failure",
+	 "want":"Bring them an exotic piece of tech,Convince someone to meet with the NPC,Kill a particular NPC,Kidnap or non-fatally eliminate a particular NPC,Pay them a large amount of money,Take a message to someone hard to reach,Acquire a tech component that’s hard to get,Find proof of a particular NPC’s malfeasance,Locate a missing NPC,Bring someone to a destination via dangerous travel,Retrieve a lost or stolen object,Defend someone from an impending attack,Burn down or destroy a particular structure,Explore a dangerous or remote location,Steal something from a rival NPC or group,Intimidate a rival into ceasing their course of action,Commit a minor crime to aid the NPC,Trick a rival into doing something,Rescue an NPC from a dire situation,Force a person or group to leave an area",
+	 "power":"They’re just really appealing and sympathetic to PCs,They have considerable liquid funds,They control the use of large amounts of violence,They have a position of great social status,They’re a good friend of an important local leader,They have blackmail info on the PCs,They have considerable legal influence here,They have tech the PCs might reasonably want,They can get the PCs into a place they want to go,They know where significant wealth can be found,They have information about the PCs’ current goal,An NPC the PCs need has implicit trust in them,The NPC can threaten someone the PCs like,They control a business relevant to PC needs,They have considerable criminal contacts,They have pull with the local religion,They know a great many corrupt politicians,They can alert the PCs to an unexpected peril,They’re able to push a goal the PCs currently have,They can get the PCs useful permits and rights",
+	 "hook":"A particular odd style of dress,An amputation or other maiming,Visible cyberware or prosthetics,Unusual hair,skin or eye colors Scarring either intentional or from old injuries,Tic-like overuse of a particular word or phrase,Specific unusual fragrance or cologne,Constant fiddling with a particular item,Visible signs of drug use,Always seems to be in one particular mood,Wears badges or marks of allegiance to a cause,Extremely slow or fast pace of speech,Wheezes, shakes, or other signs of infirmity,Constantly with a drink to hand,Always complaining about a group or organization,Paranoid, possibly for justifiable reasons,Insists on a particular location for all meetings,Communicates strictly through a third party,Abnormally obese, emaciated, tall, or short,Always found with henchmen or friends"	 
+	}],
+	
+	"Creature":[
+	 {
+	 	"type":"Amphibian,Bird,Fish,Insect,Mammal,Reptile,Spider,Exotic",
+	 	"body":"Humanoid,quadruped,Many-legged,Bulbous,Amorphous",
+	 	"limb":"Wings,Many Joints,Tentacles,Opposable thumbs,Retractable,Varying sizes",
+	 	"skin":"hard shell,exoskeleton,Odd texture,Molts regularly,Harmful to touch,Wet or slimy",
+	 	"weapon":"Teeth or mandibles,Claws,Poison,Harmful discharge,Pincers,Horns",
+	 	"size":"Cat-sized,Wolf-sized,Calf-sized,Bull-sized,Hippo-sized,Elephant-sized",
+	 	"predator":"Hunts in kin-group packs,Favors ambush attacks,Cripples prey and waits for death,Pack supports alpha-beast attack,Lures or drives prey into danger,Hunts as a lone, powerful hunter,Only is predator at certain times,Mindlessly attacks humans",
+	 	"prey":"Moves in vigilant herds,Exists in small family groups,They all team up on a single foe,They go berserk when near death,They’re violent in certain seasons,They’re vicious if threatened,Symbiotic creature protects them,Breeds at tremendous rates",
+	 	"scavenger":"Never attacks unwounded prey,Uses other beasts as harriers,Always flees if significantly hurt,Poisons prey, waits for it to die,Disguises itself as its prey,Remarkably stealthy,Summons predators to weak prey,Steals prey from weaker predator",
+	 	"discharge":"Acidic spew doing its damage on a hit,Toxic spittle or cloud, use adjacent chart,Super-heated or super-chilled spew,Sonic drill or other disabling noise,Natural laser or plasma discharge,Nauseating stench or disabling chemical,Equipment-melting corrosive,Explosive pellets or chemical catalysts",
+	 	"poison":"Death,Paralysis,Damage per onset interval,Convulsions, Blindness,Hallucinations"
+	 }
+	]
+}
