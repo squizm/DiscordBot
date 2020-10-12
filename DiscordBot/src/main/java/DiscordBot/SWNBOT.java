@@ -580,7 +580,25 @@ public class SWNBOT extends ListenerAdapter {
 			}catch (Exception ex) {
 				event.getChannel().sendMessage("Unable to parse command.\n" + ex.getMessage()).queue();
 			}
-			break;				
+			break;	
+			
+		case "!tech":
+			try {
+				event.getChannel().sendMessage(getTechBabble()).queue();				
+			}catch (Exception ex)
+			{
+				event.getChannel().sendMessage(ex.getMessage()).queue();
+			}			
+			break;
+		case "!techtts":
+			try {
+				MessageBuilder mb = new MessageBuilder();
+				mb.setTTS(true);
+				mb.setContent((String) getTechBabble());
+				event.getChannel().sendMessage(mb.build()).queue();
+			}catch(Exception ex) {
+				event.getChannel().sendMessage(ex.getMessage()).queue();
+			}
 		default:
 			// event.getChannel().addReactionById(event.getMessageId(),
 			// event.getGuild().getEmoteById(EMOTE_GROSS)).queue();
@@ -1541,5 +1559,19 @@ public class SWNBOT extends ListenerAdapter {
 		String[] domain = {"Cursed", "Desolate", "Haven","Haven", "Occult", "Religion","Technology","Warrern","Wild"};
 		String resource = "" + value[ThreadLocalRandom.current().nextInt(value.length)] + " " + domain[ThreadLocalRandom.current().nextInt(domain.length)];
 		return resource;
+	}
+	
+	private CharSequence getTechBabble() {
+		String val = "";
+		String[] adj = {"Postive", "Negative", "Hyper-", "Sub-", "Quantum", "Micro-", "Modulating", "Multi-", "Crossover", "Auxillary", "Perpetual", "Stable","Phase", "Primary", "Invasive", "Abnormal", "Starboard", "Port", "Secondary"};
+		String[] noun1 = {"positron", "proton", "tachyon", "particles", "emissions", "pulse", "subspace", "baryon", "polarity", "ion", "plasma", "graviton", "signature", "wave", "arc", "dark energy", "solar", "vibration", "quark", "neutron"};
+		String[] noun2 = {"warp", "module", "processor", "inhibitor", "controller", "injector", "drive", "system", "energy", "regulator", "conduit", "dispenser", "replicator", "barrery", "outlet", "manifold", "link", "shell", "monitor", "filter"};
+		String[] good = {"activate", "bypass", "calculate", "compensate", "compile", "convert", "couple", "decontaminate", "detect", "divert", "stabilize", "enhance", "equalize","embiggen", "generate", "modulate", "probe", "radiate", "react to", "reroute", "reverse", "scan", "emit", "synchronize", "trim"};
+		String[] bad = {"a collision","contamination","corruption", "a crack", "decay", "destabilization", "a disconnection", "disruption", "distorion", "a failure", "a flood", "a fuse", "a jam", "a leak", "a misfire", "a rupture", "slippage", "a stall", "uncoupling" };
+		// THERE IS [bad] in the [adj] [n1] [n2]!
+		// WE HAVE TO [good] the [adj] [n1] [n2]
+		val += "There is " + bad[ThreadLocalRandom.current().nextInt(bad.length)] + " in the " + adj[ThreadLocalRandom.current().nextInt(adj.length)] + " " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)] + "\n";
+		val += "You need to " + good[ThreadLocalRandom.current().nextInt(good.length)] + " the " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)];
+		return val;
 	}
 }
