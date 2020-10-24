@@ -115,139 +115,6 @@ public class SWNBOT extends ListenerAdapter {
 		builder.buildAsync();
 	}
 
-	@Override
-	public void onMessageReceived(MessageReceivedEvent event) {
-		if (event.getAuthor().isBot()) {
-			if (event.getAuthor().getName().equalsIgnoreCase("MEE6")) {
-				if (event.getMessage().getContentRaw().contains("GG")) {
-					event.getChannel().sendMessage("GG yourself in the ass, MEE6.").queue();
-				} else {
-					event.getChannel().sendMessage("Shut the fuck up MEE6! No one likes you").queue();
-				}
-			}
-			return;
-		}
-
-		if (!channels.contains(event.getChannel())) {
-			channels.add(event.getChannel());
-			loadHistoryFromNewChannel(event.getChannel());
-		}
-
-		if (event.getMessage().getContentRaw().contentEquals("!ping")) {
-			event.getChannel().sendMessage("Pong!").queue();
-
-		} else {
-			parseMessage(event);
-		}
-	}
-
-	private void loadHistoryFromNewChannel(MessageChannel channel) {
-		System.out.println("Reading history of new channel");
-		MessageHistory mh = channel.getHistory();
-		List<Message> messages = mh.retrievePast(100).complete();
-		System.out.println("Found " + messages.size() + " messages in history");
-		for (Message msg : messages) {
-			if (!msg.getAuthor().isBot()) {
-				recordNewWords(msg.getContentRaw());
-			}
-		}
-	}
-
-	private static void loadData() {
-		InputStream inputFile = ClassLoader.getSystemClassLoader().getResourceAsStream("GameData.json");
-		InputStream RPGfile = ClassLoader.getSystemClassLoader().getResourceAsStream("RPGCharacters.json");
-
-		String text = null;
-		try (Scanner scanner = new Scanner(inputFile)) {
-			text = scanner.useDelimiter("\\A").next();
-			scanner.close();
-		}
-		gameData = new JSONObject(text);
-
-		text = null;
-		try (Scanner scanner = new Scanner(RPGfile)) {
-			text = scanner.useDelimiter("\\A").next();
-			scanner.close();
-		}
-		RPGData = new JSONObject(text);
-
-		// Load the Armour images
-		InputStream portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Armour");
-		InputStreamReader isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
-		BufferedReader br = new BufferedReader(isr);
-		portraitArmourFiles = new ArrayList<String>();
-		br.lines().forEach(portraitArmourFiles::add);
-
-		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Hair");
-		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
-		br = new BufferedReader(isr);
-		portraitHairFiles = new ArrayList<String>();
-		br.lines().forEach(portraitHairFiles::add);
-
-		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/misc");
-		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
-		br = new BufferedReader(isr);
-		portraitMiscFiles = new ArrayList<String>();
-		br.lines().forEach(portraitMiscFiles::add);
-
-		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Head");
-		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
-		br = new BufferedReader(isr);
-		portraitHeadFiles = new ArrayList<String>();
-		br.lines().forEach(portraitHeadFiles::add);
-
-		try {
-			br.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		portraitArmorImages = new BufferedImage[portraitArmourFiles.size()];
-		portraitHairImages = new BufferedImage[portraitHairFiles.size()];
-		portraitHeadImages = new BufferedImage[portraitHeadFiles.size()];
-		portraitMiscImages = new BufferedImage[portraitMiscFiles.size()];
-
-		for (int i = 0; i < portraitArmourFiles.size(); i++) {
-			try {
-				portraitArmorImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
-						.getResourceAsStream("portrait/Armour/" + portraitArmourFiles.get(i)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		for (int i = 0; i < portraitHairFiles.size(); i++) {
-			try {
-				portraitHairImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
-						.getResourceAsStream("portrait/Hair/" + portraitHairFiles.get(i)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		for (int i = 0; i < portraitHeadFiles.size(); i++) {
-			try {
-				portraitHeadImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
-						.getResourceAsStream("portrait/Head/" + portraitHeadFiles.get(i)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		for (int i = 0; i < portraitMiscFiles.size(); i++) {
-			try {
-				portraitMiscImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
-						.getResourceAsStream("portrait/misc/" + portraitMiscFiles.get(i)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		madness_short = new HashMap<String,String>();
-		madness_long = new HashMap<String,String>();
-		madness_indefinite = new HashMap<String,String>();
-	}
-
 	private void parseMessage(MessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 		try {
@@ -606,6 +473,10 @@ public class SWNBOT extends ListenerAdapter {
 		}
 	}
 
+	/**********************************************************************/
+	/*					D&D Madness  								      */
+	/**********************************************************************/
+	
 	private boolean removeMadness(MADNESS_DURATION s, String string) {
 		switch(s) {
 		case INDEFINITE:
@@ -657,6 +528,10 @@ public class SWNBOT extends ListenerAdapter {
 		return retval;
 	}
 
+	/**********************************************************************/
+	/*					General Functions							      */
+	/**********************************************************************/
+	
 	private void saveMessageHistory() {
 		try {
 			FileWriter writer = new FileWriter("output.txt");
@@ -815,6 +690,143 @@ public class SWNBOT extends ListenerAdapter {
 		}
 	}
 
+	@Override
+	public void onMessageReceived(MessageReceivedEvent event) {
+		if (event.getAuthor().isBot()) {
+			if (event.getAuthor().getName().equalsIgnoreCase("MEE6")) {
+				if (event.getMessage().getContentRaw().contains("GG")) {
+					event.getChannel().sendMessage("GG yourself in the ass, MEE6.").queue();
+				} else {
+					event.getChannel().sendMessage("Shut the fuck up MEE6! No one likes you").queue();
+				}
+			}
+			return;
+		}
+
+		if (!channels.contains(event.getChannel())) {
+			channels.add(event.getChannel());
+			loadHistoryFromNewChannel(event.getChannel());
+		}
+
+		if (event.getMessage().getContentRaw().contentEquals("!ping")) {
+			event.getChannel().sendMessage("Pong!").queue();
+
+		} else {
+			parseMessage(event);
+		}
+	}
+
+	private void loadHistoryFromNewChannel(MessageChannel channel) {
+		System.out.println("Reading history of new channel");
+		MessageHistory mh = channel.getHistory();
+		List<Message> messages = mh.retrievePast(100).complete();
+		System.out.println("Found " + messages.size() + " messages in history");
+		for (Message msg : messages) {
+			if (!msg.getAuthor().isBot()) {
+				recordNewWords(msg.getContentRaw());
+			}
+		}
+	}
+
+	private static void loadData() {
+		InputStream inputFile = ClassLoader.getSystemClassLoader().getResourceAsStream("GameData.json");
+		InputStream RPGfile = ClassLoader.getSystemClassLoader().getResourceAsStream("RPGCharacters.json");
+
+		String text = null;
+		try (Scanner scanner = new Scanner(inputFile)) {
+			text = scanner.useDelimiter("\\A").next();
+			scanner.close();
+		}
+		gameData = new JSONObject(text);
+
+		text = null;
+		try (Scanner scanner = new Scanner(RPGfile)) {
+			text = scanner.useDelimiter("\\A").next();
+			scanner.close();
+		}
+		RPGData = new JSONObject(text);
+
+		// Load the Armour images
+		InputStream portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Armour");
+		InputStreamReader isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
+		BufferedReader br = new BufferedReader(isr);
+		portraitArmourFiles = new ArrayList<String>();
+		br.lines().forEach(portraitArmourFiles::add);
+
+		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Hair");
+		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
+		br = new BufferedReader(isr);
+		portraitHairFiles = new ArrayList<String>();
+		br.lines().forEach(portraitHairFiles::add);
+
+		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/misc");
+		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
+		br = new BufferedReader(isr);
+		portraitMiscFiles = new ArrayList<String>();
+		br.lines().forEach(portraitMiscFiles::add);
+
+		portaitFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("portrait/Head");
+		isr = new InputStreamReader(portaitFiles, StandardCharsets.UTF_8);
+		br = new BufferedReader(isr);
+		portraitHeadFiles = new ArrayList<String>();
+		br.lines().forEach(portraitHeadFiles::add);
+
+		try {
+			br.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		portraitArmorImages = new BufferedImage[portraitArmourFiles.size()];
+		portraitHairImages = new BufferedImage[portraitHairFiles.size()];
+		portraitHeadImages = new BufferedImage[portraitHeadFiles.size()];
+		portraitMiscImages = new BufferedImage[portraitMiscFiles.size()];
+
+		for (int i = 0; i < portraitArmourFiles.size(); i++) {
+			try {
+				portraitArmorImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
+						.getResourceAsStream("portrait/Armour/" + portraitArmourFiles.get(i)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for (int i = 0; i < portraitHairFiles.size(); i++) {
+			try {
+				portraitHairImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
+						.getResourceAsStream("portrait/Hair/" + portraitHairFiles.get(i)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for (int i = 0; i < portraitHeadFiles.size(); i++) {
+			try {
+				portraitHeadImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
+						.getResourceAsStream("portrait/Head/" + portraitHeadFiles.get(i)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for (int i = 0; i < portraitMiscFiles.size(); i++) {
+			try {
+				portraitMiscImages[i] = ImageIO.read(ClassLoader.getSystemClassLoader()
+						.getResourceAsStream("portrait/misc/" + portraitMiscFiles.get(i)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		madness_short = new HashMap<String,String>();
+		madness_long = new HashMap<String,String>();
+		madness_indefinite = new HashMap<String,String>();
+	}
+
+	/**********************************************************************/
+	/*					RPG Stuff	 								      */
+	/**********************************************************************/
+	
 	private BufferedImage genPortrait() {
 		BufferedImage portrait = new BufferedImage(48, 48, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) portrait.getGraphics();
@@ -1296,6 +1308,20 @@ public class SWNBOT extends ListenerAdapter {
 		return "You should play: " + getRandomValue(characterList);
 	}
 
+	private CharSequence getTechBabble() {
+		String val = "";
+		String[] adj = {"Postive", "Negative", "Hyper-", "Sub-", "Quantum", "Micro-", "Modulating", "Multi-", "Crossover", "Auxillary", "Perpetual", "Stable","Phase", "Primary", "Invasive", "Abnormal", "Starboard", "Port", "Secondary"};
+		String[] noun1 = {"positron", "proton", "tachyon", "particles", "emissions", "pulse", "subspace", "baryon", "polarity", "ion", "plasma", "graviton", "signature", "wave", "arc", "dark energy", "solar", "vibration", "quark", "neutron"};
+		String[] noun2 = {"warp", "module", "processor", "inhibitor", "controller", "injector", "drive", "system", "energy", "regulator", "conduit", "dispenser", "replicator", "barrery", "outlet", "manifold", "link", "shell", "monitor", "filter"};
+		String[] good = {"activate", "bypass", "calculate", "compensate", "compile", "convert", "couple", "decontaminate", "detect", "divert", "stabilize", "enhance", "equalize","embiggen", "generate", "modulate", "probe", "radiate", "react to", "reroute", "reverse", "scan", "emit", "synchronize", "trim"};
+		String[] bad = {"a collision","contamination","corruption", "a crack", "decay", "destabilization", "a disconnection", "disruption", "distorion", "a failure", "a flood", "a fuse", "a jam", "a leak", "a misfire", "a rupture", "slippage", "a stall", "uncoupling" };
+		// THERE IS [bad] in the [adj] [n1] [n2]!
+		// WE HAVE TO [good] the [adj] [n1] [n2]
+		val += "There is " + bad[ThreadLocalRandom.current().nextInt(bad.length)] + " in the " + adj[ThreadLocalRandom.current().nextInt(adj.length)] + " " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)] + "\n";
+		val += "You need to " + good[ThreadLocalRandom.current().nextInt(good.length)] + " the " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)];
+		return val;
+	}
+	
 	//////////////////////////////////////////////////////////////////////
 	// IRONSWORN SECTION
 	//////////////////////////////////////////////////////////////////////
@@ -1366,7 +1392,6 @@ public class SWNBOT extends ListenerAdapter {
 				+ suffix[ThreadLocalRandom.current().nextInt(suffix.length)];
 		return name;
 	}
-
 
 	//////////////////////////////////////////////////////////////////////
 	// HEART SECTION
@@ -1561,17 +1586,4 @@ public class SWNBOT extends ListenerAdapter {
 		return resource;
 	}
 	
-	private CharSequence getTechBabble() {
-		String val = "";
-		String[] adj = {"Postive", "Negative", "Hyper-", "Sub-", "Quantum", "Micro-", "Modulating", "Multi-", "Crossover", "Auxillary", "Perpetual", "Stable","Phase", "Primary", "Invasive", "Abnormal", "Starboard", "Port", "Secondary"};
-		String[] noun1 = {"positron", "proton", "tachyon", "particles", "emissions", "pulse", "subspace", "baryon", "polarity", "ion", "plasma", "graviton", "signature", "wave", "arc", "dark energy", "solar", "vibration", "quark", "neutron"};
-		String[] noun2 = {"warp", "module", "processor", "inhibitor", "controller", "injector", "drive", "system", "energy", "regulator", "conduit", "dispenser", "replicator", "barrery", "outlet", "manifold", "link", "shell", "monitor", "filter"};
-		String[] good = {"activate", "bypass", "calculate", "compensate", "compile", "convert", "couple", "decontaminate", "detect", "divert", "stabilize", "enhance", "equalize","embiggen", "generate", "modulate", "probe", "radiate", "react to", "reroute", "reverse", "scan", "emit", "synchronize", "trim"};
-		String[] bad = {"a collision","contamination","corruption", "a crack", "decay", "destabilization", "a disconnection", "disruption", "distorion", "a failure", "a flood", "a fuse", "a jam", "a leak", "a misfire", "a rupture", "slippage", "a stall", "uncoupling" };
-		// THERE IS [bad] in the [adj] [n1] [n2]!
-		// WE HAVE TO [good] the [adj] [n1] [n2]
-		val += "There is " + bad[ThreadLocalRandom.current().nextInt(bad.length)] + " in the " + adj[ThreadLocalRandom.current().nextInt(adj.length)] + " " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)] + "\n";
-		val += "You need to " + good[ThreadLocalRandom.current().nextInt(good.length)] + " the " + noun1[ThreadLocalRandom.current().nextInt(noun1.length)] + " " + noun2[ThreadLocalRandom.current().nextInt(noun2.length)];
-		return val;
-	}
 }
